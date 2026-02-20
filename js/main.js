@@ -78,19 +78,22 @@ if (videoWorkCard) {
 const videoLightbox = document.getElementById('videoLightbox');
 if (videoLightbox && videoWorkCard) {
   const videoSources = [
-    'images/reels/DI10aTBRffO.mp4',
-    'images/reels/C5n7zbHO5E0.mp4',
-    'images/reels/DFLBhmzRUrN.mp4',
-    'images/reels/DDFwYgAxy8d.mp4',
-    'images/reels/DByv66mxq_a.mp4',
-    'images/reels/C_Qp8jvu4cL.mp4'
+    { src: 'images/reels/DI10aTBRffO.mp4', poster: 'images/reels/DI10aTBRffO-poster.jpg' },
+    { src: 'images/reels/C5n7zbHO5E0.mp4', poster: 'images/reels/C5n7zbHO5E0-poster.jpg' },
+    { src: 'images/reels/DFLBhmzRUrN.mp4', poster: 'images/reels/DFLBhmzRUrN-poster.jpg' },
+    { src: 'images/reels/DDFwYgAxy8d.mp4', poster: 'images/reels/DDFwYgAxy8d-poster.jpg' },
+    { src: 'images/reels/DByv66mxq_a.mp4', poster: 'images/reels/DByv66mxq_a-poster.jpg' },
+    { src: 'images/reels/C_Qp8jvu4cL.mp4', poster: 'images/reels/C_Qp8jvu4cL-poster.jpg' },
+    { src: 'images/reels/DTifcOsjjCz.mp4', poster: 'images/reels/DTifcOsjjCz-poster.jpg' }
   ];
   const player = document.getElementById('videoLightboxPlayer');
   const counter = document.getElementById('videoLightboxCounter');
   let currentVideoIndex = 0;
 
   function showVideo() {
-    player.src = videoSources[currentVideoIndex];
+    var video = videoSources[currentVideoIndex];
+    player.poster = video.poster;
+    player.src = video.src;
     player.load();
     player.oncanplay = function () {
       player.oncanplay = null;
@@ -497,6 +500,25 @@ if (lightbox) {
       else prevImage();
     }
   }, { passive: true });
+
+  // Contact form validation
+  var contactForm = document.querySelector('.contact__form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function (e) {
+      var email = contactForm.querySelector('input[name="email"]');
+      var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (email && !emailPattern.test(email.value.trim())) {
+        e.preventDefault();
+        email.focus();
+        return;
+      }
+      var honey = contactForm.querySelector('input[name="_honey"]');
+      if (honey && honey.value) {
+        e.preventDefault();
+        return;
+      }
+    });
+  }
 
   // Portfolio card click
   document.querySelectorAll('[data-gallery]').forEach(card => {

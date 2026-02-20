@@ -467,6 +467,10 @@ input, textarea {
   filter: grayscale(0%);
 }
 
+.portfolio__img--pos-20 { object-position: center 20%; }
+.portfolio__img--pos-35 { object-position: center 35%; }
+.portfolio__img--pos-40 { object-position: center 40%; }
+
 .portfolio__card-overlay {
   position: absolute;
   inset: 0;
@@ -601,6 +605,18 @@ input, textarea {
 
 .reels-section .section__header {
   margin-bottom: var(--space-xl);
+}
+
+.reels-fallback {
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: var(--text-base);
+  padding: var(--space-xl) var(--space-lg);
+}
+
+.reels-fallback a {
+  color: var(--color-text-primary);
+  text-decoration: underline;
 }
 
 .reels-marquee {
@@ -1075,10 +1091,8 @@ input, textarea {
     --marquee-gap: 1.5rem;
   }
 
-  .portfolio__card--large,
-  .portfolio__card--small {
-    grid-column: span 6;
-  }
+  .portfolio__card--large { grid-column: span 8; }
+  .portfolio__card--small { grid-column: span 4; }
 
   .about__grid {
     grid-template-columns: 1fr;
