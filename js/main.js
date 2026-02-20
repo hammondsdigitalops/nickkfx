@@ -505,6 +505,7 @@ if (lightbox) {
   var contactForm = document.querySelector('.contact__form');
   if (contactForm) {
     contactForm.addEventListener('submit', function (e) {
+      var submitBtn = contactForm.querySelector('button[type="submit"]');
       var email = contactForm.querySelector('input[name="email"]');
       var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (email && !emailPattern.test(email.value.trim())) {
@@ -516,6 +517,11 @@ if (lightbox) {
       if (honey && honey.value) {
         e.preventDefault();
         return;
+      }
+      // Prevent double-submission
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
       }
     });
   }

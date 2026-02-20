@@ -182,10 +182,10 @@ describe('Video Lightbox - Opening', () => {
     expect(player.src).toContain('DI10aTBRffO.mp4');
   });
 
-  test('opening displays counter as "1 / 6"', () => {
+  test('opening displays counter as "1 / 7"', () => {
     document.getElementById('videoWorkCard').click();
     const counter = document.getElementById('videoLightboxCounter');
-    expect(counter.textContent).toBe('1 / 6');
+    expect(counter.textContent).toBe('1 / 7');
   });
 
   test('opening calls player.load()', () => {
@@ -302,24 +302,24 @@ describe('Video Lightbox - Navigation', () => {
     const player = document.getElementById('videoLightboxPlayer');
     expect(player.src).toContain('C5n7zbHO5E0.mp4');
     const counter = document.getElementById('videoLightboxCounter');
-    expect(counter.textContent).toBe('2 / 6');
+    expect(counter.textContent).toBe('2 / 7');
   });
 
-  test('clicking prev from first video wraps to last (video 6)', () => {
+  test('clicking prev from first video wraps to last (video 7)', () => {
     document.querySelector('.video-lightbox__prev').click();
     const player = document.getElementById('videoLightboxPlayer');
-    expect(player.src).toContain('C_Qp8jvu4cL.mp4');
+    expect(player.src).toContain('DTifcOsjjCz.mp4');
     const counter = document.getElementById('videoLightboxCounter');
-    expect(counter.textContent).toBe('6 / 6');
+    expect(counter.textContent).toBe('7 / 7');
   });
 
-  test('clicking next 6 times wraps back to video 1', () => {
+  test('clicking next 7 times wraps back to video 1', () => {
     const nextBtn = document.querySelector('.video-lightbox__next');
-    for (let i = 0; i < 6; i++) nextBtn.click();
+    for (let i = 0; i < 7; i++) nextBtn.click();
     const player = document.getElementById('videoLightboxPlayer');
     expect(player.src).toContain('DI10aTBRffO.mp4');
     const counter = document.getElementById('videoLightboxCounter');
-    expect(counter.textContent).toBe('1 / 6');
+    expect(counter.textContent).toBe('1 / 7');
   });
 
   test('ArrowRight key advances to next video', () => {
@@ -331,7 +331,7 @@ describe('Video Lightbox - Navigation', () => {
   test('ArrowLeft key goes to previous video', () => {
     document.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft' }));
     const player = document.getElementById('videoLightboxPlayer');
-    expect(player.src).toContain('C_Qp8jvu4cL.mp4');
+    expect(player.src).toContain('DTifcOsjjCz.mp4');
   });
 
   test('keyboard does nothing when video lightbox is closed', () => {
@@ -373,7 +373,7 @@ describe('Video Lightbox - Touch/Swipe', () => {
     const vl = document.getElementById('videoLightbox');
     simulateSwipe(vl, 200, 300);
     const player = document.getElementById('videoLightboxPlayer');
-    expect(player.src).toContain('C_Qp8jvu4cL.mp4');
+    expect(player.src).toContain('DTifcOsjjCz.mp4');
   });
 
   test('small swipe does not navigate', () => {

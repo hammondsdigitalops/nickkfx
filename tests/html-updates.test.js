@@ -79,7 +79,7 @@ describe('HTML — Absolute OG/Twitter URLs', () => {
 
   test('og:image points to the correct domain', () => {
     const ogImage = document.querySelector('meta[property="og:image"]');
-    expect(ogImage.getAttribute('content')).toContain('nickfx-portfolio.netlify.app');
+    expect(ogImage.getAttribute('content')).toContain('hammondsdigitalops.github.io');
   });
 
   test('twitter:image uses absolute URL', () => {
@@ -91,7 +91,7 @@ describe('HTML — Absolute OG/Twitter URLs', () => {
 
   test('twitter:image points to the correct domain', () => {
     const twImage = document.querySelector('meta[name="twitter:image"]');
-    expect(twImage.getAttribute('content')).toContain('nickfx-portfolio.netlify.app');
+    expect(twImage.getAttribute('content')).toContain('hammondsdigitalops.github.io');
   });
 
   test('og:image and twitter:image reference the same file', () => {

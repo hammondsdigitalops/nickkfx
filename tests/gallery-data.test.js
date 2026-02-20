@@ -37,11 +37,11 @@ function extractGalleryPaths(name) {
   return paths ? paths.map(p => p.replace(/'/g, '')) : [];
 }
 
-// Extract video sources array
+// Extract video sources array (only .mp4 src paths, not poster .jpg paths)
 function extractVideoSources() {
   const match = jsContent.match(/const videoSources\s*=\s*\[([\s\S]*?)\]/);
   if (!match) return [];
-  const paths = match[1].match(/'([^']+)'/g);
+  const paths = match[1].match(/'([^']+\.mp4)'/g);
   return paths ? paths.map(p => p.replace(/'/g, '')) : [];
 }
 
