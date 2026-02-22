@@ -39,22 +39,39 @@ document.querySelectorAll('.animate-on-scroll').forEach(el => {
   scrollObserver.observe(el);
 });
 
-// Lazy play/pause videos when reels section is in view
-const reelsObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    const video = entry.target.querySelector('video');
-    if (!video) return;
-    if (entry.isIntersecting) {
-      video.play().catch(() => {});
-    } else {
-      video.pause();
-    }
-  });
-}, { threshold: 0.1 });
+// Reels section: play all videos when section is visible, pause when not
+const reelsSection = document.getElementById('reels');
+if (reelsSection) {
+  const reelVideos = reelsSection.querySelectorAll('.reels-marquee__item video');
 
-document.querySelectorAll('.reels-marquee__item').forEach(el => {
-  reelsObserver.observe(el);
-});
+  function playReelVideo(video) {
+    if (video.preload === 'none') {
+      video.preload = 'auto';
+      video.load();
+    }
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        video.addEventListener('canplay', function onCanPlay() {
+          video.removeEventListener('canplay', onCanPlay);
+          video.play().catch(() => {});
+        });
+      });
+    }
+  }
+
+  const reelsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        reelVideos.forEach(v => playReelVideo(v));
+      } else {
+        reelVideos.forEach(v => v.pause());
+      }
+    });
+  }, { threshold: 0.05 });
+
+  reelsObserver.observe(reelsSection);
+}
 
 // Video Work card: autoplay when in view (mobile-safe)
 const videoWorkCard = document.getElementById('videoWorkCard');
