@@ -56,7 +56,7 @@ document.querySelectorAll('.reels-marquee__item').forEach(el => {
   reelsObserver.observe(el);
 });
 
-// Video Work card: autoplay when in view
+// Video Work card: autoplay when in view (mobile-safe)
 const videoWorkCard = document.getElementById('videoWorkCard');
 if (videoWorkCard) {
   const previewVideo = videoWorkCard.querySelector('video');
@@ -64,12 +64,27 @@ if (videoWorkCard) {
     const cardObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          previewVideo.play().catch(() => {});
+          const playPromise = previewVideo.play();
+          if (playPromise !== undefined) {
+            playPromise.catch(() => {
+              previewVideo.addEventListener('canplay', function onCanPlay() {
+                previewVideo.removeEventListener('canplay', onCanPlay);
+                previewVideo.play().catch(() => {});
+              });
+              function onInteraction() {
+                previewVideo.play().catch(() => {});
+                document.removeEventListener('touchstart', onInteraction);
+                document.removeEventListener('click', onInteraction);
+              }
+              document.addEventListener('touchstart', onInteraction, { once: true, passive: true });
+              document.addEventListener('click', onInteraction, { once: true });
+            });
+          }
         } else {
           previewVideo.pause();
         }
       });
-    }, { threshold: 0.3 });
+    }, { threshold: 0.1 });
     cardObserver.observe(videoWorkCard);
   }
 }
